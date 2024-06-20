@@ -771,7 +771,19 @@ void *AtenderCliente(void *socket)
 					}
 				}
 			}
-		}		
+		}
+		else if (codigo == 6)
+		{
+			// Enviar lista de usuarios conectados a todos los clientes
+			EnviarConectados(peticion);
+				
+			int bytes_enviados = write(sock_conn, peticion, strlen(peticion));
+			if (bytes_enviados <= 0) 
+			{
+				printf("Error al enviar datos al cliente\n");
+			}
+			printf("Lista de conectados actualizada enviada!\n");
+		}			
 
 		else if(codigo == 13) //
 		{

@@ -102,7 +102,15 @@ namespace WindowsFormsApplication1
                     {
                         MessageBox.Show("Este usuario ya está conectado.");
                     }
-                }            
+                }
+
+                // El servidor envia la lista de conectados a todos los usuarios conectados
+                if (codigo == 6)
+                {
+                    string conectados = string.Join("/", trozos.Skip(1));
+                    DelegadoParaEscribir delegado = new DelegadoParaEscribir(EscribirConectados);
+                    this.Invoke(delegado, new object[] { conectados });
+                }               
                 // Los usuarios reciben la respuesta a la consulta realizada
                 if (codigo == 13)
                 {
@@ -171,6 +179,18 @@ namespace WindowsFormsApplication1
                 formulario = new Form2(nombreUsuario, server);
                 formulario.Show();
             });
+        }
+
+        public void EscribirConectados(string conectados)
+        {
+            try
+            {
+                formulario.EscribeConectados(conectados);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error en EscribirConectados: {ex.Message}");
+            }
         }
         public void EscribirNotificacion(string notificacion)
         {

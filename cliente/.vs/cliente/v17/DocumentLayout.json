@@ -1,29 +1,29 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 1\\cliente\\",
+  "WorkspaceRootPath": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 2\\cliente\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|c:\\share\\m4 parchis versiones\\m4 parchis 1\\cliente\\windowsformsapplication1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|c:\\share\\m4 parchis versiones\\m4 parchis 2\\cliente\\windowsformsapplication1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|solutionrelative:windowsformsapplication1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|C:\\share\\M4 Parchis Versiones\\M4 Parchis 1\\cliente\\windowsformsapplication1\\form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|solutionrelative:windowsformsapplication1\\form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|C:\\share\\M4 Parchis Versiones\\M4 Parchis 1\\cliente\\windowsformsapplication1\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|C:\\share\\M4 Parchis Versiones\\M4 Parchis 2\\cliente\\windowsformsapplication1\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|solutionrelative:windowsformsapplication1\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|C:\\share\\M4 Parchis Versiones\\M4 Parchis 1\\cliente\\windowsformsapplication1\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|C:\\share\\M4 Parchis Versiones\\M4 Parchis 2\\cliente\\windowsformsapplication1\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|solutionrelative:windowsformsapplication1\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|C:\\share\\M4 Parchis Versiones\\M4 Parchis 1\\cliente\\windowsformsapplication1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|C:\\share\\M4 Parchis Versiones\\M4 Parchis 2\\cliente\\windowsformsapplication1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|solutionrelative:windowsformsapplication1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|C:\\share\\M4 Parchis Versiones\\M4 Parchis 1\\cliente\\windowsformsapplication1\\form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|C:\\share\\M4 Parchis Versiones\\M4 Parchis 2\\cliente\\windowsformsapplication1\\form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|solutionrelative:windowsformsapplication1\\form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|C:\\share\\M4 Parchis Versiones\\M4 Parchis 2\\cliente\\windowsformsapplication1\\form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{F5E08E40-5E04-41A2-AFB5-56E3E3274D24}|WindowsFormsApplication1\\clienteForm.csproj|solutionrelative:windowsformsapplication1\\form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
@@ -40,11 +40,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 1\\cliente\\WindowsFormsApplication1\\Form1.cs",
+              "DocumentMoniker": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 2\\cliente\\WindowsFormsApplication1\\Form1.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication1\\Form1.cs",
-              "ToolTip": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 1\\cliente\\WindowsFormsApplication1\\Form1.cs",
+              "ToolTip": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 2\\cliente\\WindowsFormsApplication1\\Form1.cs",
               "RelativeToolTip": "WindowsFormsApplication1\\Form1.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAABQAAAA",
+              "ViewState": "AQIAAF4AAAAAAAAAAAAQwG0AAAA4AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-27T09:19:12.124Z",
               "IsPinned": true,
@@ -52,9 +52,9 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Form1.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 1\\cliente\\WindowsFormsApplication1\\Form1.cs",
+              "DocumentMoniker": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 2\\cliente\\WindowsFormsApplication1\\Form1.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication1\\Form1.cs",
               "ToolTip": "C:\\share\\M4 Parchis 2\\cliente\\WindowsFormsApplication1\\Form1.cs [Dise\u00F1o]",
               "RelativeToolTip": "..\\..\\..\\M4 Parchis 2\\cliente\\WindowsFormsApplication1\\Form1.cs [Dise\u00F1o]",
@@ -64,38 +64,40 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Form2.cs",
-              "DocumentMoniker": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 1\\cliente\\WindowsFormsApplication1\\Form2.cs",
+              "DocumentMoniker": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 2\\cliente\\WindowsFormsApplication1\\Form2.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication1\\Form2.cs",
-              "ToolTip": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 1\\cliente\\WindowsFormsApplication1\\Form2.cs",
+              "ToolTip": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 2\\cliente\\WindowsFormsApplication1\\Form2.cs",
               "RelativeToolTip": "WindowsFormsApplication1\\Form2.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAADUAAAAMAAAA",
+              "ViewState": "AQIAAFUAAAAAAAAAAAAgwGIAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-23T18:42:54.218Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Form2.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 1\\cliente\\WindowsFormsApplication1\\Form2.cs",
-              "RelativeDocumentMoniker": "WindowsFormsApplication1\\Form2.cs",
-              "ToolTip": "C:\\share\\M4 Parchis 1\\cliente\\WindowsFormsApplication1\\Form2.cs [Dise\u00F1o]",
-              "RelativeToolTip": "..\\..\\..\\M4 Parchis 1\\cliente\\WindowsFormsApplication1\\Form2.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-23T18:42:34.297Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Form2.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 2\\cliente\\WindowsFormsApplication1\\Form2.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApplication1\\Form2.cs",
+              "ToolTip": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 2\\cliente\\WindowsFormsApplication1\\Form2.cs [Dise\u00F1o]",
+              "RelativeToolTip": "WindowsFormsApplication1\\Form2.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-23T18:42:34.297Z",
+              "IsPinned": true,
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Form3.cs",
-              "DocumentMoniker": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 1\\cliente\\WindowsFormsApplication1\\Form3.cs",
+              "DocumentMoniker": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 2\\cliente\\WindowsFormsApplication1\\Form3.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication1\\Form3.cs",
-              "ToolTip": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 1\\cliente\\WindowsFormsApplication1\\Form3.cs",
+              "ToolTip": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 2\\cliente\\WindowsFormsApplication1\\Form3.cs",
               "RelativeToolTip": "WindowsFormsApplication1\\Form3.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAYwBIAAAAJAAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAABIAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-30T17:50:43.988Z",
               "IsPinned": true
@@ -104,10 +106,10 @@
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "Form3.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 1\\cliente\\WindowsFormsApplication1\\Form3.cs",
+              "DocumentMoniker": "C:\\share\\M4 Parchis Versiones\\M4 Parchis 2\\cliente\\WindowsFormsApplication1\\Form3.cs",
               "RelativeDocumentMoniker": "WindowsFormsApplication1\\Form3.cs",
-              "ToolTip": "C:\\share\\M4 Parchis 1\\cliente\\WindowsFormsApplication1\\Form3.cs [Dise\u00F1o]",
-              "RelativeToolTip": "..\\..\\..\\M4 Parchis 1\\cliente\\WindowsFormsApplication1\\Form3.cs [Dise\u00F1o]",
+              "ToolTip": "C:\\share\\M4 Parchis 2\\cliente\\WindowsFormsApplication1\\Form3.cs [Dise\u00F1o]",
+              "RelativeToolTip": "..\\..\\..\\M4 Parchis 2\\cliente\\WindowsFormsApplication1\\Form3.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-30T17:49:53.235Z",
               "IsPinned": true

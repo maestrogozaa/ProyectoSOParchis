@@ -1,3 +1,2 @@
 # ProjecteSOParchis
-# Versión 1
-Versión 1: https://youtu.be/wIJjfF9SpOw
+Versión 2: https://youtu.be/ajHN3Fy5iic
