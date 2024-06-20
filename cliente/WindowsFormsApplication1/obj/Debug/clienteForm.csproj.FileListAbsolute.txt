@@ -432,15 +432,3 @@ C:\share\M4 Parchis 3\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csp
 C:\share\M4 Parchis 3\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.CoreCompileInputs.cache
 C:\share\M4 Parchis 3\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
 C:\share\M4 Parchis 3\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
-C:\share\M4 Parchis 2\cliente\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
-C:\share\M4 Parchis 2\cliente\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
-C:\share\M4 Parchis 2\cliente\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
-C:\share\M4 Parchis 2\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.AssemblyReference.cache
-C:\share\M4 Parchis 2\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form1.resources
-C:\share\M4 Parchis 2\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form2.resources
-C:\share\M4 Parchis 2\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form3.resources
-C:\share\M4 Parchis 2\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
-C:\share\M4 Parchis 2\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.GenerateResource.cache
-C:\share\M4 Parchis 2\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.CoreCompileInputs.cache
-C:\share\M4 Parchis 2\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
-C:\share\M4 Parchis 2\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb

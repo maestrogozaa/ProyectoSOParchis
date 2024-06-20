@@ -687,6 +687,19 @@ void *AtenderCliente(void *socket)
 					close(sock_conn);
 					pthread_exit(NULL);
 				}
+							
+				// Enviar lista de usuarios conectados a todos los clientes
+				EnviarConectados(peticion);
+				
+				for (int i = 0; i < listaConect.num; i++) 
+				{
+					int bytes_enviados = write(listaConect.listaConectado[i].socket, peticion, strlen(peticion));
+					if (bytes_enviados <= 0) 
+					{
+						printf("Error al enviar datos al cliente\n");
+					}
+				}
+				printf("Lista de conectados actualizada enviada a todos los usuarios conectados!\n");
 			} 
 			else 
 			{
@@ -769,21 +782,22 @@ void *AtenderCliente(void *socket)
 					{
 						printf("Error al enviar datos al cliente\n");
 					}
+					
+					// Enviar lista de usuarios conectados a todos los clientes
+					EnviarConectados(peticion);
+					
+					for (int i = 0; i < listaConect.num; i++) 
+					{
+						int bytes_enviados = write(listaConect.listaConectado[i].socket, peticion, strlen(peticion));
+						if (bytes_enviados <= 0) 
+						{
+							printf("Error al enviar datos al cliente\n");
+						}
+					}
+					printf("Lista de conectados actualizada enviada a todos los usuarios conectados!\n");
 				}
 			}
 		}
-		else if (codigo == 6)
-		{
-			// Enviar lista de usuarios conectados a todos los clientes
-			EnviarConectados(peticion);
-				
-			int bytes_enviados = write(sock_conn, peticion, strlen(peticion));
-			if (bytes_enviados <= 0) 
-			{
-				printf("Error al enviar datos al cliente\n");
-			}
-			printf("Lista de conectados actualizada enviada!\n");
-		}			
 
 		else if(codigo == 13) //
 		{

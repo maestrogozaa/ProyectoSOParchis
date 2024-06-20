@@ -94,15 +94,6 @@ namespace WindowsFormsApplication1
             dataGridView.AllowUserToResizeRows = false;
         }
 
-        private void listaConectadosBtn_Click(object sender, EventArgs e)
-        {
-            //Envío a la base de datos los datos introducidos
-            string mensaje = $"6/";
-            // Enviamos al servidor los datos tecleados
-            byte[] msg = Encoding.ASCII.GetBytes(mensaje);
-            server.Send(msg);
-        }
-
         private void consultasBtn_Click(object sender, EventArgs e)
         {
             formularioConsultas = new Form3(server, nombreUsuario);

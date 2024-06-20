@@ -35,7 +35,6 @@
             this.conectados = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usuarioLbl = new System.Windows.Forms.Label();
             this.consultasBtn = new System.Windows.Forms.Button();
-            this.listaConectadosBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -103,7 +102,7 @@
             // 
             // consultasBtn
             // 
-            this.consultasBtn.Location = new System.Drawing.Point(274, 260);
+            this.consultasBtn.Location = new System.Drawing.Point(264, 260);
             this.consultasBtn.Name = "consultasBtn";
             this.consultasBtn.Size = new System.Drawing.Size(132, 49);
             this.consultasBtn.TabIndex = 55;
@@ -111,23 +110,12 @@
             this.consultasBtn.UseVisualStyleBackColor = true;
             this.consultasBtn.Click += new System.EventHandler(this.consultasBtn_Click);
             // 
-            // listaConectadosBtn
-            // 
-            this.listaConectadosBtn.Location = new System.Drawing.Point(264, 315);
-            this.listaConectadosBtn.Name = "listaConectadosBtn";
-            this.listaConectadosBtn.Size = new System.Drawing.Size(152, 52);
-            this.listaConectadosBtn.TabIndex = 56;
-            this.listaConectadosBtn.Text = "Lista de conectados";
-            this.listaConectadosBtn.UseVisualStyleBackColor = true;
-            this.listaConectadosBtn.Click += new System.EventHandler(this.listaConectadosBtn_Click);
-            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Purple;
-            this.ClientSize = new System.Drawing.Size(465, 829);
-            this.Controls.Add(this.listaConectadosBtn);
+            this.ClientSize = new System.Drawing.Size(434, 829);
             this.Controls.Add(this.consultasBtn);
             this.Controls.Add(this.usuarioLbl);
             this.Controls.Add(this.dataGridView1);
@@ -154,6 +142,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn conectados;
         private System.Windows.Forms.Label usuarioLbl;
         private System.Windows.Forms.Button consultasBtn;
-        private System.Windows.Forms.Button listaConectadosBtn;
     }
 }
