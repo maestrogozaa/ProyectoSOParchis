@@ -798,6 +798,301 @@ void *AtenderCliente(void *socket)
 				}
 			}
 		}
+		
+		else if(codigo == 3) // Crear sala: 3/Admin sala
+		{
+			p = strtok(NULL, "/");
+			if (p == NULL) {
+				printf("Error: Usuario no especificado.\n");
+				break;
+			}
+			strcpy(nomUsuario, p);				
+					
+			char notificacion[20];
+			int crear = CrearSala(&listaInvita, &listaConect, nomUsuario);
+			if(crear == 1) sprintf(notificacion, "3/1");
+			else strcpy(notificacion, "3/-1");
+								
+			int bytes_enviados = write(sock_conn, notificacion, strlen(notificacion));
+			if (bytes_enviados <= 0) 
+			{
+				printf("Error al enviar datos al cliente\n");
+			}		
+			
+			if(crear == 1)
+			{
+				char jugadores[2000];
+				char listaJugadores[2000];
+				VerSala(&listaInvita, nomUsuario, jugadores);
+				sprintf(listaJugadores, "5/%s",jugadores);				
+				printf("Envio lista de jugadores: '%s' por el socket: '%d'\n", listaJugadores, sock_conn);
+				int bytes_enviados = write(sock_conn, listaJugadores, strlen(listaJugadores));
+				if (bytes_enviados <= 0) 
+				{
+					printf("Error al enviar datos al cliente\n");
+				}
+			}			
+		}
+		
+		else if (codigo == 4) // Abandonar o eliminar sala: 4/Usuario/Nombre sala
+		{
+			char notificacion[200];
+			char notificacion2[200];
+			char jugadores[2000];
+			char listaJugadores[2000];
+
+			p = strtok(NULL, "/");
+			if (p == NULL) {
+				printf("Error: Usuario no especificado.\n");
+				break;
+			}
+			strcpy(nomUsuario, p);
+
+			int esAdmin = EsAdmin(&listaInvita, nomUsuario);
+			if (esAdmin == 1) 
+			{
+				strcpy(notificacion2, "10/La sala ha sido eliminada.");
+				VerSala(&listaInvita, nomUsuario, jugadores);
+				strcpy(listaJugadores, jugadores);
+				char Sockets_Jugadores_Sala[400];
+				int n = Dame_Sockets_Sala(&listaInvita, &listaConect, nomUsuario, Sockets_Jugadores_Sala, jugadores);
+
+				if (n > 0) 
+				{
+					char *l = strtok(Sockets_Jugadores_Sala, "-");
+					for (int i = 0; i < n; i++) 
+					{
+						if (l == NULL) break; // Verificar que l no sea NULL
+						int socket_actual = atoi(l);
+						printf("Envio notificación de sala eliminada por el socket: '%d'\n", socket_actual);
+						int bytes_enviados = write(socket_actual, notificacion2, strlen(notificacion2));
+						if (bytes_enviados <= 0) {
+							printf("Error al enviar datos al cliente\n");
+						}
+						l = strtok(NULL, "-");
+					}
+				}
+
+				int eliminar = EliminarSala(&listaInvita, &listaConect, nomUsuario);
+				if (eliminar == 1) strcpy(notificacion, "4/1");
+				else strcpy(notificacion, "4/-1");
+
+				int bytes_enviados = write(sock_conn, notificacion, strlen(notificacion));
+				if (bytes_enviados <= 0) {
+					printf("Error al enviar datos al cliente\n");
+				}
+			}
+			else
+			{
+				int estaEnUnaSala = EstaEnUnaSala(&listaConect, nomUsuario);
+				if (estaEnUnaSala == 1)
+				{
+					char nombreSala[200];
+					p = strtok(NULL, "/");
+					if (p == NULL) {
+						printf("Error: Nombre de sala no especificado.\n");
+						strcpy(notificacion, "4/-1");
+						int bytes_enviados = write(sock_conn, notificacion, strlen(notificacion));
+						if (bytes_enviados <= 0) {
+							printf("Error al enviar datos al cliente\n");
+						}
+					}
+					strcpy(nombreSala, p);
+
+					int abandonar = AbandonarSala(&listaInvita, &listaConect, nomUsuario, nombreSala);
+					if (abandonar == 1) 
+					{
+						strcpy(notificacion, "4/1");
+						int bytes_enviados = write(sock_conn, notificacion, strlen(notificacion));
+						if (bytes_enviados <= 0) {
+							printf("Error al enviar datos al cliente\n");
+						}
+
+						char jugadores[2000];
+						char jugadores2[2000];
+						char notificacion_jugadores[2000];
+						VerSala(&listaInvita, nombreSala, jugadores);
+						strcpy(jugadores2, jugadores);
+						char Sockets_Jugadores_Sala[400];
+						int n = Dame_Sockets_Sala(&listaInvita, &listaConect, nombreSala, Sockets_Jugadores_Sala, jugadores2);
+						sprintf(notificacion_jugadores, "5/%s", jugadores);
+
+						printf("Sockets sala: %s\n", Sockets_Jugadores_Sala);
+						printf("Jugadores sala: %s\n", jugadores);
+
+						char *l = strtok(Sockets_Jugadores_Sala, "-");
+						for (int i = 0; i < n; i++) {
+							if (l == NULL) break;
+							int socket_actual = atoi(l);
+							printf("Envio notificación lista de jugadores: '%s' por el socket: '%d'\n", notificacion_jugadores, socket_actual);
+							int bytes_enviados_jugadores = write(socket_actual, notificacion_jugadores, strlen(notificacion_jugadores));
+							if (bytes_enviados_jugadores <= 0) {
+								printf("Error al enviar datos al cliente\n");
+							}
+							l = strtok(NULL, "-");
+						}
+						printf("Lista de jugadores actualizada enviada a todos los usuarios de la sala!\n");
+					}
+					else {
+						strcpy(notificacion, "4/-1");
+						int bytes_enviados = write(sock_conn, notificacion, strlen(notificacion));
+						if (bytes_enviados <= 0) {
+							printf("Error al enviar datos al cliente\n");
+						}
+					}
+				}
+				else
+				{
+					strcpy(notificacion, "4/-1");
+					printf("El usuario '%s' no esta en ninguna sala.\n", nomUsuario);
+					int bytes_enviados = write(sock_conn, notificacion, strlen(notificacion));
+					if (bytes_enviados <= 0) {
+						printf("Error al enviar datos al cliente\n");
+					}
+				}
+			}
+		}
+		
+		else if(codigo == 7) // Invitacion: 7/Persona que invita/Persona invitada
+		{
+			char invitador[200];
+			p = strtok(NULL, "/");
+			strcpy(invitador, p);
+			
+			char invitado[50];            
+			p = strtok(NULL, "/");
+			strcpy(invitado, p);    
+			
+			int salaLlena = SalaLlena(&listaInvita, invitador);
+			if(salaLlena == 0){
+				int enSala = EstaEnUnaSala(&listaConect, invitado);
+				if (enSala == 0) {
+					char mensaje[200];    
+					printf("'%s' ha invitado a jugar a '%s'.\n", invitador, invitado);    
+					strcpy(mensaje, "Solicitud enviada.");
+					snprintf(buff, sizeof(buff), "7/%s", mensaje);
+					
+					int bytes_enviados = write(sock_conn, buff, strlen(buff));
+					if (bytes_enviados <= 0) {
+						printf("Error al enviar datos al cliente\n");
+					}
+					
+					char invitacion[200];
+					snprintf(invitacion, sizeof(invitacion), "8/%s/%s", invitador, invitado);
+					int sock_invitado = Dame_Socket(&listaConect, invitado);
+					bytes_enviados = write(sock_invitado, invitacion, strlen(invitacion));
+					if (bytes_enviados <= 0) {
+						printf("Error al enviar datos al cliente\n");
+					}
+					printf("Se ha enviado la invitacion al usuario '%s' por el socket '%d'.\n", invitado, sock_invitado);             
+				}
+				else {
+					char notificacion[200];
+					snprintf(notificacion, sizeof(notificacion), "7/Invitacion invalida. '%s' ya esta en una sala.", invitado);
+					int bytes_enviados = write(sock_conn, notificacion, strlen(notificacion));
+					if (bytes_enviados <= 0) {
+						printf("Error al enviar datos al cliente\n");
+					}
+					printf("No se ha podido invitar a '%s' porque ya está en una sala.\n", invitado);
+				}
+			}
+			else{
+				char notif[200];
+				strcpy(notif, "7/La sala esta llena.");           
+				int bytes_enviados = write(sock_conn, notif, strlen(notif));
+				if (bytes_enviados <= 0) {
+					printf("Error al enviar datos al cliente\n");
+				}
+				printf("No se puede invitar, la sala esta llena.\n");
+			}
+		}
+		
+		else if (codigo == 8) // Aceptar o rechazar invitacion: 8/Persona que invita/Persona invitada/(1 o -1)
+		{
+			char invitador[200];
+			p = strtok(NULL, "/");
+			strcpy(invitador, p);
+			
+			char invitado[200];            
+			p = strtok(NULL, "/");
+			strcpy(invitado, p);
+			
+			int aceptada;
+			int anadir;
+			p = strtok(NULL, "/");
+			aceptada = atoi(p);
+			char notificacion[200];
+			char notificacion2[200];
+			char notificacion3[200];
+			
+			if (aceptada == 1) {
+				anadir = AnadirASala(&listaInvita, &listaConect, invitador, invitado);    
+				
+				if (anadir == 1) {                            
+					char jugadores[2000];
+					char jugadores2[2000];            
+					VerSala(&listaInvita, invitador, jugadores);
+					strcpy(jugadores2, jugadores);
+					char Sockets_Jugadores_Sala[400];
+					int n = Dame_Sockets_Sala(&listaInvita, &listaConect, invitador, Sockets_Jugadores_Sala, jugadores2);                 
+					sprintf(notificacion3, "5/%s", jugadores); 
+					printf("Sockets sala: %s\n", Sockets_Jugadores_Sala);
+					printf("Jugadores sala: %s\n", jugadores);
+					char *l = strtok(Sockets_Jugadores_Sala, "-");
+					for (int i = 0; i < n; i++) {    
+						if (l == NULL) break;
+						int socket_actual = atoi(l);
+						printf("Envio notificacion lista de jugadores: '%s' por el socket: '%d'\n", notificacion3, socket_actual);
+						int bytes_enviados = write(socket_actual, notificacion3, strlen(notificacion3));
+						if (bytes_enviados <= 0) {
+							printf("Error al enviar datos al cliente\n");
+						}
+						l = strtok(NULL, "-");
+					}
+					printf("Lista de jugadores actualizada enviada a todos los usuarios de la sala!\n");
+					
+					sprintf(notificacion, "9/'%s' se ha unido a la sala.", invitado);
+					printf("'%s' se ha unido a la sala.\n", invitado);
+					
+					// NotificaciÃ³n para todos los usuarios de la sala
+					l = strtok(Sockets_Jugadores_Sala, "-");
+					for (int i = 0; i < n; i++) {
+						if (l == NULL) break;
+						int socket_actual = atoi(l);
+						int bytes_enviados = write(socket_actual, notificacion, strlen(notificacion));
+						if (bytes_enviados <= 0) {
+							printf("Error al enviar datos al cliente\n");
+						}
+						l = strtok(NULL, "-");
+					}
+					
+					// NotificaciÃ³n especÃ­fica para el invitado
+					int sock_invitado = Dame_Socket(&listaConect, invitado);
+					strcpy(notificacion2, "9/Te has unido a la sala.");
+					int bytes_enviados = write(sock_invitado, notificacion2, strlen(notificacion2));
+					if (bytes_enviados <= 0) {
+						printf("Error al enviar datos al cliente\n");
+					} 
+				}
+				else {
+					strcpy(notificacion, "La sala esta llena, intentalo mas tarde.\n");                
+					int sock_invitado = Dame_Socket(&listaConect, invitado);
+					int bytes_enviados = write(sock_invitado, notificacion, strlen(notificacion));
+					if (bytes_enviados <= 0) {
+						printf("Error al enviar datos al cliente\n");
+					}
+				}
+			}
+			else {
+				printf("'%s' ha rechazado la invitacion de union a la sala.\n", invitado);
+				sprintf(notificacion, "9/'%s' ha rechazado la solicitud de union a la sala.", invitado);
+				int sock_invitador = Dame_Socket(&listaConect, invitador);
+				int bytes_enviados = write(sock_invitador, notificacion, strlen(notificacion));
+				if (bytes_enviados <= 0) {
+					printf("Error al enviar datos al cliente\n");
+				}  
+			}            
+		}
 
 		else if(codigo == 13) //
 		{

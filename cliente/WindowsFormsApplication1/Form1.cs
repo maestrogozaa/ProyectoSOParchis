@@ -103,6 +103,87 @@ namespace WindowsFormsApplication1
                         MessageBox.Show("Este usuario ya está conectado.");
                     }
                 }
+                // Respuesta del servidor a la creación de una sala
+                if (codigo == 3)
+                {
+                    string notificacion;
+                    mensaje = trozos[1].Split('\0')[0];
+                    if (mensaje == "1")
+                    {
+                        notificacion = "Sala creada con éxito!";
+                        admin = true;
+                        gridSala = true;
+                        enSala = true;
+
+                        DelegadoParaEscribir delegado = new DelegadoParaEscribir(EscribirNotificacion);
+                        this.Invoke(delegado, new object[] { notificacion });
+
+                        DelegadoParaAdmin2 delegado5 = new DelegadoParaAdmin2(SetNombreAdmin);
+                        this.Invoke(delegado5, new object[] { nombreUsuario });
+
+                        DelegadoParaAjustes delegado7 = new DelegadoParaAjustes(Ajustes);
+                        this.Invoke(delegado7, new object[] { false });
+                    }
+                    else
+                    {
+                        notificacion = "Ya estás en una sala.";
+
+                        DelegadoParaEscribir delegado = new DelegadoParaEscribir(EscribirNotificacion);
+                        this.Invoke(delegado, new object[] { notificacion });
+                        admin = true;
+                        enSala = true;
+                        gridSala = true;
+                    }                    
+
+                    DelegadoParaAdmin delegado2 = new DelegadoParaAdmin(SetAdmin);
+                    this.Invoke(delegado2, new object[] { admin });
+
+                    DelegadoParaGridSala delegado3 = new DelegadoParaGridSala(SetGrid2);
+                    this.Invoke(delegado3, new object[] { gridSala });
+
+                    DelegadoParaSala delegado6 = new DelegadoParaSala(EnSala);
+                    this.Invoke(delegado6, new object[] { enSala });
+                }
+                // Respuesta del servidor al abandono de una sala
+                if (codigo == 4)
+                {
+                    DelegadoParaBorrar delegado4 = new DelegadoParaBorrar(BorrarChat);
+                    string notificacion;
+                    mensaje = trozos[1].Split('\0')[0];
+                    if (mensaje == "1")
+                    {
+                        notificacion = "Has abandonado la sala";
+                        this.Invoke(delegado4, new object[] { true });
+                        enSala = false;
+
+                        DelegadoParaAdmin2 delegado5 = new DelegadoParaAdmin2(SetNombreAdmin);
+                        this.Invoke(delegado5, new object[] { "" });
+                    }
+                    else
+                    {
+                        notificacion = "No estás en ninguna sala.";
+                        enSala = false;
+                    }
+                    DelegadoParaEscribir delegado = new DelegadoParaEscribir(EscribirNotificacion);
+                    this.Invoke(delegado, new object[] { notificacion });
+
+                    DelegadoParaAdmin delegado2 = new DelegadoParaAdmin(SetAdmin);
+                    this.Invoke(delegado2, new object[] { false });
+
+                    DelegadoParaGridSala delegado3 = new DelegadoParaGridSala(SetGrid);
+                    this.Invoke(delegado3, new object[] { false});
+
+                    DelegadoParaSala delegado6 = new DelegadoParaSala(EnSala);
+                    this.Invoke(delegado6, new object[] { enSala });
+                }
+                // El servidor envia la lista de jugadores dentro de la sala
+                if (codigo == 5)
+                {
+                    string jugadores = trozos[1].Split('\0')[0];
+
+                    DelegadoParaEscribir delegado = new DelegadoParaEscribir(EscribeJugadoresSala);
+                    this.Invoke(delegado, new object[] { jugadores });
+                }
 
                 // El servidor envia la lista de conectados a todos los usuarios conectados
                 if (codigo == 6)
@@ -110,7 +191,31 @@ namespace WindowsFormsApplication1
                     string conectados = string.Join("/", trozos.Skip(1));
                     DelegadoParaEscribir delegado = new DelegadoParaEscribir(EscribirConectados);
                     this.Invoke(delegado, new object[] { conectados });
-                }               
+                }
+
+                // El usuario que invita recibe un mensaje para notificar el estado de la invitación
+                if (codigo == 7)
+                {
+                    string notificacion = trozos[1].Split('\0')[0];
+                    DelegadoParaEscribir delegado = new DelegadoParaEscribir(EscribirNotificacion);
+                    this.Invoke(delegado, new object[] { notificacion });
+                }
+
+                // Los usuarios invitados reciben la notificación y pueden aceptar o rechazar
+                if (codigo == 8)
+                {
+                    string notificacion = string.Join("/", trozos.Skip(1));
+                    DelegadoParaSolicitud delegado = new DelegadoParaSolicitud(EscribirSolicitud);
+                    this.Invoke(delegado, new object[] { notificacion });
+                }
+
+                // Los usuarios invitados reciben un mensaje para notificar el estado de la unión
+                if (codigo == 9)
+                {
+                    string notificacion = trozos[1].Split('\0')[0];
+                    DelegadoParaEscribir delegado = new DelegadoParaEscribir(EscribirNotificacion);
+                    this.Invoke(delegado, new object[] { notificacion });
+                }                
                 // Los usuarios reciben la respuesta a la consulta realizada
                 if (codigo == 13)
                 {
@@ -165,6 +270,7 @@ namespace WindowsFormsApplication1
                 }                
             }
         }
+
         public Form1()
         {
             InitializeComponent();
@@ -192,9 +298,27 @@ namespace WindowsFormsApplication1
                 MessageBox.Show($"Error en EscribirConectados: {ex.Message}");
             }
         }
+        public void EscribeJugadoresSala(string jugadores)
+        {
+            try
+            {
+                formulario.EscribeJugadoresSala(jugadores);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error en EscribirJugadoresSala: {ex.Message}");
+            }
+        }
         public void EscribirNotificacion(string notificacion)
         {
             formulario.EscribirNotificacion(notificacion);
+        }
+        public void EscribirChat(string mensaje)
+        {
+            string[] trozos = mensaje.Split('|');
+            string emisor = trozos[0];
+            string mensajeChat = trozos[1].Split('\0')[0];
+            formulario.EscribirChat(emisor, mensajeChat);
         }
         public void RellenarGrid(string jugador)
         {
@@ -212,6 +336,39 @@ namespace WindowsFormsApplication1
         {
             formulario.EscribirMensajeConsultas(jugador);
         }
+        public void BorrarChat(bool borrar)
+        {
+            formulario.BorrarChat(borrar);
+        }
+        public void SetAdmin(bool admin)
+        {
+            formulario.SetAdmin(admin);
+        }
+        public void SetNombreAdmin(string nombreAdmin)
+        {
+            formulario.SetNombreAdmin(nombreAdmin);
+        }
+        public void Ajustes(bool partidaEmpezada)
+        {
+            formulario.Ajustes(partidaEmpezada);
+        }
+        public void SetGrid(bool gridSala)
+        {
+            formulario.SetGrid(gridSala);
+        }
+        public void EnSala(bool enSala)
+        {
+            formulario.EnSala(enSala);
+        }
+        public void SetGrid2(bool gridSala)
+        {
+            formulario.SetGrid2(gridSala);
+        }
+        public void EscribirSolicitud(string notificacion)
+        {
+            formulario.EscribirSolicitud(notificacion);
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (!this.conectado)
