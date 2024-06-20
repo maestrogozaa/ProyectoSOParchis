@@ -1,0 +1,18 @@
+C:\share\ProjecteSOParchis\M4 Parchis\M4Parchis - Solo falta el juego\cliente\ParchisClasses\bin\Debug\ParchisClasses.dll
+C:\share\ProjecteSOParchis\M4 Parchis\M4Parchis - Solo falta el juego\cliente\ParchisClasses\bin\Debug\ParchisClasses.pdb
+C:\share\ProjecteSOParchis\M4 Parchis\M4Parchis - Solo falta el juego\cliente\ParchisClasses\obj\Debug\ParchisClasses.csproj.AssemblyReference.cache
+C:\share\ProjecteSOParchis\M4 Parchis\M4Parchis - Solo falta el juego\cliente\ParchisClasses\obj\Debug\ParchisClasses.csproj.CoreCompileInputs.cache
+C:\share\ProjecteSOParchis\M4 Parchis\M4Parchis - Solo falta el juego\cliente\ParchisClasses\obj\Debug\ParchisClasses.dll
+C:\share\ProjecteSOParchis\M4 Parchis\M4Parchis - Solo falta el juego\cliente\ParchisClasses\obj\Debug\ParchisClasses.pdb
+C:\share\ProjecteSOParchis\M4Parchis_ConsultasEchas\M4 Parchis\cliente\ParchisClasses\obj\Debug\ParchisClasses.csproj.AssemblyReference.cache
+C:\share\ProjecteSOParchis\M4Parchis_ConsultasEchas\M4 Parchis\cliente\ParchisClasses\obj\Debug\ParchisClasses.csproj.CoreCompileInputs.cache
+C:\share\ProjecteSOParchis\M4Parchis_ConsultasEchas\M4 Parchis\cliente\ParchisClasses\obj\Debug\ParchisClasses.dll
+C:\share\ProjecteSOParchis\M4Parchis_ConsultasEchas\M4 Parchis\cliente\ParchisClasses\obj\Debug\ParchisClasses.pdb
+C:\share\ProjecteSOParchis\M4Parchis_ConsultasEchas\M4 Parchis\cliente\ParchisClasses\bin\Debug\ParchisClasses.dll
+C:\share\ProjecteSOParchis\M4Parchis_ConsultasEchas\M4 Parchis\cliente\ParchisClasses\bin\Debug\ParchisClasses.pdb
+C:\share\M4Parchis_new\cliente\ParchisClasses\bin\Debug\ParchisClasses.dll
+C:\share\M4Parchis_new\cliente\ParchisClasses\bin\Debug\ParchisClasses.pdb
+C:\share\M4Parchis_new\cliente\ParchisClasses\obj\Debug\ParchisClasses.csproj.AssemblyReference.cache
+C:\share\M4Parchis_new\cliente\ParchisClasses\obj\Debug\ParchisClasses.csproj.CoreCompileInputs.cache
+C:\share\M4Parchis_new\cliente\ParchisClasses\obj\Debug\ParchisClasses.dll
+C:\share\M4Parchis_new\cliente\ParchisClasses\obj\Debug\ParchisClasses.pdb
