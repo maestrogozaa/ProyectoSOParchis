@@ -432,8 +432,8 @@ int Dame_Numero_Jugadores_Sala(ListaInvitaciones *lista, char id[200], int *nJug
 
 void *AtenderCliente(void *socket) 
 {	
-	strcpy(ubicacion, "localhost");
-	//strcpy(ubicacion, "shiva2.upc.es");
+	//strcpy(ubicacion, "localhost");
+	strcpy(ubicacion, "shiva2.upc.es");
 	
 	char nomUsuario[20];
 	char contra[20];
@@ -952,6 +952,7 @@ void *AtenderCliente(void *socket)
 				}
 			}
 		}
+
 		
 		else if(codigo == 7) // Invitacion: 7/Persona que invita/Persona invitada
 		{
@@ -1092,6 +1093,82 @@ void *AtenderCliente(void *socket)
 					printf("Error al enviar datos al cliente\n");
 				}  
 			}            
+		}
+
+		else if(codigo == 11) // Mensaje chat de sala: 11/Sala(0) o Juego(1)/Nombre admin/Emisor mensaje/Texto
+		{			
+			p = strtok(NULL, "/");
+			int form = atoi(p);
+				
+			char nombreAdmin[200];			
+			p = strtok(NULL, "/");
+			strcpy(nombreAdmin, p);
+			
+			char emisorMensaje[200];			
+			p = strtok(NULL, "/");
+			strcpy(emisorMensaje, p);
+			
+			char texto [500];			
+			p = strtok(NULL, "/");
+			strcpy(texto, p);	
+			
+			char jugadores[2000];
+			char jugadores2[2000];
+			char notificacion[2000];
+			VerSala(&listaInvita, nombreAdmin, jugadores);
+			strcpy(jugadores2, jugadores);
+			
+			char Sockets_Jugadores_Sala[400];
+			int n = Dame_Sockets_Sala(&listaInvita, &listaConect, nombreAdmin, Sockets_Jugadores_Sala, jugadores2); 				
+			sprintf(notificacion, "11/%d/%s|%s",form,emisorMensaje, texto);	
+			
+			printf("Sockets sala: %s\n", Sockets_Jugadores_Sala);
+			printf("Jugadores sala: %s\n", jugadores);
+			char *l = strtok(Sockets_Jugadores_Sala, "-");
+			for (int i = 0; i < n; i++) {	
+				if (l == NULL) break;
+				int socket_actual = atoi(l);
+				printf("Envio mensaje al chat de sala: '%s' por el socket: '%d'\n", notificacion, socket_actual);
+				int bytes_enviados = write(socket_actual, notificacion, strlen(notificacion));
+				if (bytes_enviados <= 0) 
+				{
+					printf("Error al enviar datos al cliente\n");
+				}
+				l = strtok(NULL, "-");
+			}
+			printf("Mensaje chat de sala enviado a todos los usuarios de la sala!\n");
+		}
+      
+		else if(codigo == 12)
+		{
+			char invitador[200];
+			p = strtok(NULL, "/");
+			strcpy(invitador, p);
+					
+			char jugadores[2000];
+			char jugadores2[2000];
+			char Sockets_Jugadores_Sala[400];
+			int n = Dame_Sockets_Sala(&listaInvita, &listaConect, invitador, Sockets_Jugadores_Sala, jugadores2);
+			strcpy(jugadores, jugadores2);
+			
+			char *l = strtok(Sockets_Jugadores_Sala, "-");
+			char notif[200];
+			int turno = 1;
+				
+			for (int i = 0; i < n; i++) 
+			{
+				if (l == NULL) break;
+				int socket_actual = atoi(l);               
+				sprintf(notif, "12/1/%s/%d/%d", invitador, turno, n);
+				int bytes_enviados = write(socket_actual, notif, strlen(notif));
+				printf("Se ha enviado %s por el socket: '%d'.\n",notif, socket_actual);
+				if (bytes_enviados <= 0) 
+				{
+					printf("Error al enviar datos al cliente\n");
+				}
+				l = strtok(NULL, "-");
+				turno += 1;
+			}	
 		}
 
 		else if(codigo == 13) //
@@ -1322,7 +1399,225 @@ void *AtenderCliente(void *socket)
 				}
 				mysql_free_result(resultado);
 			}
-		}		
+		}
+		else if(codigo == 20) // 
+		{			
+			p = strtok(NULL, "/");
+			turno = atoi(p);
+			
+			char nombreAdmin[200];			
+			p = strtok(NULL, "/");
+			strcpy(nombreAdmin, p);			
+			
+			int roja1;
+			roja1 = atoi(strtok(NULL, "/"));	
+			int roja2;
+			roja2 = atoi(strtok(NULL, "/"));	
+			int roja3;
+			roja3 = atoi(strtok(NULL, "/"));	
+			int roja4;
+			roja4 = atoi(strtok(NULL, "/"));
+			
+			int verde1;
+			verde1 = atoi(strtok(NULL, "/"));	
+			int verde2;
+			verde2 = atoi(strtok(NULL, "/"));	
+			int verde3;
+			verde3 = atoi(strtok(NULL, "/"));	
+			int verde4;
+			verde4 = atoi(strtok(NULL, "/"));
+			
+			int azul1;
+			azul1 = atoi(strtok(NULL, "/"));	
+			int azul2;
+			azul2 = atoi(strtok(NULL, "/"));	
+			int azul3;
+			azul3 = atoi(strtok(NULL, "/"));	
+			int azul4;
+			azul4 = atoi(strtok(NULL, "/"));
+			
+			int amarilla1;
+			amarilla1 = atoi(strtok(NULL, "/"));	
+			int amarilla2;
+			amarilla2 = atoi(strtok(NULL, "/"));	
+			int amarilla3;
+			amarilla3 = atoi(strtok(NULL, "/"));	
+			int amarilla4;
+			amarilla4 = atoi(strtok(NULL, "/"));
+
+			char jugadores[2000];
+			char jugadores2[2000];
+			char notificacion[2000];
+			VerSala(&listaInvita, nombreAdmin, jugadores);
+			strcpy(jugadores2, jugadores);
+			
+			char Sockets_Jugadores_Sala[400];
+			int n = Dame_Sockets_Sala(&listaInvita, &listaConect, nombreAdmin, Sockets_Jugadores_Sala, jugadores2); 	
+
+			if(turno < n) turno += 1;
+			else turno = 1;			
+			sprintf(notificacion, "20/%d/%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d",turno, roja1, roja2, roja3, roja4, verde1, verde2, verde3, verde4, azul1, azul2, azul3, azul4, amarilla1, amarilla2, amarilla3, amarilla4);	
+			
+			printf("Sockets sala: %s\n", Sockets_Jugadores_Sala);
+			printf("Jugadores sala: %s\n", jugadores);
+			char *l = strtok(Sockets_Jugadores_Sala, "-");
+			for (int i = 0; i < n; i++) {	
+				if (l == NULL) break;
+				int socket_actual = atoi(l);
+				printf("Envio actualización de fichas y de turno a todos los jugadores de la partida: '%s' por el socket: '%d'\n", notificacion, socket_actual);
+				int bytes_enviados = write(socket_actual, notificacion, strlen(notificacion));
+				if (bytes_enviados <= 0) 
+				{
+					printf("Error al enviar datos al cliente\n");
+				}
+				l = strtok(NULL, "-");
+			}
+			printf("Actualización de fichas y de turno enviado a todos los usuarios de la sala!\n");
+		}
+		else if(codigo == 21) // Jugador abandona la partida
+		{		
+			char notificacion[200];
+			char notificacion2[200];
+			char jugadores[2000];
+			char listaJugadores[2000];
+
+			p = strtok(NULL, "/");
+			strcpy(nomUsuario, p);
+
+			int esAdmin = EsAdmin(&listaInvita, nomUsuario);
+			if (esAdmin == 1) 
+			{
+				sprintf(notificacion2, "21/El administrador '%s' ha abandonado la partida.", nomUsuario);
+				VerSala(&listaInvita, nomUsuario, jugadores);
+				strcpy(listaJugadores, jugadores);
+				char Sockets_Jugadores_Sala[400];
+				int n = Dame_Sockets_Sala(&listaInvita, &listaConect, nomUsuario, Sockets_Jugadores_Sala, jugadores);
+
+				if (n > 0) 
+				{
+					char *l = strtok(Sockets_Jugadores_Sala, "-");
+					for (int i = 0; i < n; i++) 
+					{
+						if (l == NULL) break; // Verificar que l no sea NULL
+						int socket_actual = atoi(l);
+						printf("Envio notificación de abandono de partida por el socket: '%d'\n", socket_actual);
+						int bytes_enviados = write(socket_actual, notificacion2, strlen(notificacion2));
+						if (bytes_enviados <= 0) {
+							printf("Error al enviar datos al cliente\n");
+						}
+						l = strtok(NULL, "-");
+					}
+				}
+
+				int eliminar = EliminarSala(&listaInvita, &listaConect, nomUsuario);
+				sprintf(notificacion, "21/Has abandonado la partida.");
+
+				int bytes_enviados = write(sock_conn, notificacion, strlen(notificacion));
+				if (bytes_enviados <= 0) {
+					printf("Error al enviar datos al cliente\n");
+				}
+			}
+			else
+			{
+				int estaEnUnaSala = EstaEnUnaSala(&listaConect, nomUsuario);
+				if (estaEnUnaSala == 1)
+				{
+					char nombreSala[200];
+					p = strtok(NULL, "/");
+					strcpy(nombreSala, p);
+
+					int abandonar = AbandonarSala(&listaInvita, &listaConect, nomUsuario, nombreSala);
+					if (abandonar == 1) 
+					{
+						sprintf(notificacion, "21/Has abandonado la partida.");
+						int bytes_enviados = write(sock_conn, notificacion, strlen(notificacion));
+						if (bytes_enviados <= 0) {
+							printf("Error al enviar datos al cliente\n");
+						}
+
+						char jugadores[2000];
+						char jugadores2[2000];
+						char notificacion_jugadores[2000];
+						VerSala(&listaInvita, nombreSala, jugadores);
+						strcpy(jugadores2, jugadores);
+						char Sockets_Jugadores_Sala[400];
+						int n = Dame_Sockets_Sala(&listaInvita, &listaConect, nombreSala, Sockets_Jugadores_Sala, jugadores2);
+						sprintf(notificacion_jugadores, "21/'%s' ha abandonado la partida.", nomUsuario);
+
+						printf("Sockets partida: %s\n", Sockets_Jugadores_Sala);
+						printf("Jugadores partida: %s\n", jugadores);
+
+						char *l = strtok(Sockets_Jugadores_Sala, "-");
+						for (int i = 0; i < n; i++) {
+							if (l == NULL) break;
+							int socket_actual = atoi(l);
+							printf("Envio notificación jugador ha abandonado: '%s' por el socket: '%d'\n", notificacion_jugadores, socket_actual);
+							int bytes_enviados_jugadores = write(socket_actual, notificacion_jugadores, strlen(notificacion_jugadores));
+							if (bytes_enviados_jugadores <= 0) {
+								printf("Error al enviar datos al cliente\n");
+							}
+							l = strtok(NULL, "-");
+						}
+					}
+				}
+			}
+		}
+		else if (codigo == 22) //Se añade la partida a la tabla partidas
+		{
+			char fecha[20];
+			p = strtok(NULL, "-");
+			
+			strncpy(fecha, p, sizeof(fecha) - 1);
+			fecha[sizeof(fecha) - 1] = '\0';
+
+			char admin[20];
+			p = strtok(NULL, "-");
+			strncpy(admin, p, sizeof(admin) - 1);
+			admin[sizeof(admin) - 1] = '\0';
+
+			char jugadores[200];
+			int n = VerSala(&listaInvita, admin, jugadores);
+
+			// Convertir n a cadena
+			char n_str[4];
+			snprintf(n_str, sizeof(n_str), "%d", n);
+
+			// Insertar partida en la base de datos
+			char consulta[1000];
+			strcpy(consulta, "INSERT INTO Partida (fecha, N_Jugadores, Jugador1, Jugador2, Jugador3, Jugador4) VALUES ('");
+			strcat(consulta, fecha);
+			strcat(consulta, "', ");
+			strcat(consulta, n_str);
+
+			char *l = strtok(jugadores, "-");
+			for (int i = 0; i < n; i++) 
+			{
+				strcat(consulta, ", '");
+				strcat(consulta, l);
+				strcat(consulta, "'");
+				l = strtok(NULL, "-");
+			}
+
+			// Rellenar con NULL los jugadores faltantes
+			for (int i = n; i < 4; i++) 
+			{
+				strcat(consulta, ", NULL");
+			}
+
+			strcat(consulta, ");");
+
+			err = mysql_query(conn, consulta);
+			if (err != 0) 
+			{
+				printf("Error al insertar datos en la base: %u %s\n", mysql_errno(conn), mysql_error(conn));
+				close(sock_conn);
+				pthread_exit(NULL);
+			}
+
+			printf("Partida guardada con exito!\n");
+		}
+
+		
 		else{
 			printf("Codigo no valido.\n");
 		}
@@ -1339,8 +1634,8 @@ void *AtenderCliente(void *socket)
 //-----------------------------------------------------------------------------------------------------------------------//
 
 int main(int argc, char *argv[]) {
-    strcpy(ubicacion, "localhost");
-    //strcpy(ubicacion, "shiva2.upc.es");
+    //strcpy(ubicacion, "localhost");
+    strcpy(ubicacion, "shiva2.upc.es");
     //Inicio el MYSQL
     MYSQL *conn;
     int err;
@@ -1378,7 +1673,7 @@ int main(int argc, char *argv[]) {
     // htonl formatea el numero que recibe al formato necesario
     serv_adr.sin_addr.s_addr = htonl(INADDR_ANY);
     //50016
-    serv_adr.sin_port = htons(9070);
+    serv_adr.sin_port = htons(50015);
 
     if (bind(sock_listen, (struct sockaddr *)&serv_adr, sizeof(serv_adr)) < 0)
         printf("Error al bind\n");

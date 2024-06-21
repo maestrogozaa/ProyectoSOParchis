@@ -6,15 +6,17 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using ParchisClassLibrary1;
 
 namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
-        int puerto = 9070;
+        int puerto = 50015;
         Socket server;
         Thread atender;
         Form2 formulario;
+        FormTablero formulario2;
 
         delegate void DelegadoParaEscribir(string mensaje);
         delegate void DelegadoParaActualizarJuego(int turno, string posiciones);
@@ -215,8 +217,69 @@ namespace WindowsFormsApplication1
                     string notificacion = trozos[1].Split('\0')[0];
                     DelegadoParaEscribir delegado = new DelegadoParaEscribir(EscribirNotificacion);
                     this.Invoke(delegado, new object[] { notificacion });
-                }                
-                // Los usuarios reciben la respuesta a la consulta realizada
+                }
+
+                // Los usuarios invitados reciben un mensaje de que la sala ha sido eliminada
+                if (codigo == 10)
+                {
+                    string notificacion = trozos[1].Split('\0')[0];
+                    DelegadoParaEscribir delegado = new DelegadoParaEscribir(EscribirNotificacion);
+                    this.Invoke(delegado, new object[] { notificacion });
+
+                    DelegadoParaGridSala delegado2 = new DelegadoParaGridSala(SetGrid);
+                    this.Invoke(delegado2, new object[] { false});
+                }
+                // Se actualiza el chat de la sala
+                if (codigo == 11)
+                {
+                    int form = Convert.ToInt32(trozos[1]);
+                    string mensajeChat = trozos[2].Split('\0')[0];
+                    DelegadoParaGridSala delegado2 = new DelegadoParaGridSala(SetGrid2);
+                    this.Invoke(delegado2, new object[] { true });
+
+                    if(form == 0)
+                    {
+                        DelegadoParaEscribir delegado = new DelegadoParaEscribir(EscribirChat);
+                        this.Invoke(delegado, new object[] { mensajeChat });
+                    }
+                    else
+                    {
+                        DelegadoParaEscribir delegado3 = new DelegadoParaEscribir(EscribirChatJuego);
+                        this.Invoke(delegado3, new object[] { mensajeChat });
+                    }
+                }
+                // Los usuarios invitados reciben un mensaje de que la partida va a empezar
+                if (codigo == 12)
+                {
+                    // Cambiamos la división basada en '\0' por una división basada en '/'
+
+                    string mensajeParte1 = trozos[1];
+                    string nombreAdmin;
+                    int turno;
+                    int numeroJugadores;
+                    // Procesamos la respuesta basándonos en el código de operación
+                    if (mensajeParte1 == "1")
+                    {
+                        nombreAdmin = trozos[2];
+                        turno = Convert.ToInt32(trozos[3].Split('\0')[0]);
+                        numeroJugadores = Convert.ToInt32(trozos[4].Split('\0')[0]);
+
+                        MessageBox.Show("La partida está a punto de empezar.");
+                        DelegadoParaAjustes delegado = new DelegadoParaAjustes(Ajustes);
+                        this.Invoke(delegado, new object[] { true });
+                        PonerEnMarchaFormularioTablero(nombreAdmin, turno, numeroJugadores);
+                    }
+                    else if (mensajeParte1 == "-1")
+                    {
+                        MessageBox.Show("Faltan jugadores.");
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Mensaje inesperado: {mensajeParte1}");
+                    }
+
+                }
+                // Los usuarios reciben la resupuesta a la consulta realizada
                 if (codigo == 13)
                 {
                     string num_consulta = trozos[1];
@@ -267,7 +330,39 @@ namespace WindowsFormsApplication1
                             this.Invoke(delegado, new object[] { msg });
                         }
                     }
-                }                
+                }
+                // Código del juego
+                if (codigo == 20)
+                {
+                    int turno = Convert.ToInt32(trozos[1]);
+                    string posiciones = trozos[2].Split('\0')[0];
+                    DelegadoParaActualizarJuego delegado = new DelegadoParaActualizarJuego(ActualizarJuego);
+                    this.Invoke(delegado, new object[] { turno, posiciones });
+                }
+                // Jugador abandona partida
+                if (codigo == 21)
+                {
+                    mensaje = trozos[1].Split('\0')[0];
+
+                    DelegadoParaBorrar delegado4 = new DelegadoParaBorrar(BorrarChat);
+                    this.Invoke(delegado4, new object[] { true });
+
+                    DelegadoParaAdmin2 delegado5 = new DelegadoParaAdmin2(SetNombreAdmin);
+                    this.Invoke(delegado5, new object[] { "" });
+                    enSala = false;
+
+                    DelegadoParaEscribir delegado = new DelegadoParaEscribir(NotificarAbandono);
+                    this.Invoke(delegado, new object[] { mensaje });
+
+                    DelegadoParaAdmin delegado2 = new DelegadoParaAdmin(SetAdmin);
+                    this.Invoke(delegado2, new object[] { false });
+
+                    DelegadoParaGridSala delegado3 = new DelegadoParaGridSala(SetGrid);
+                    this.Invoke(delegado3, new object[] { false });
+
+                    DelegadoParaSala delegado6 = new DelegadoParaSala(EnSala);
+                    this.Invoke(delegado6, new object[] { enSala });
+                }
             }
         }
 
@@ -284,6 +379,15 @@ namespace WindowsFormsApplication1
             {
                 formulario = new Form2(nombreUsuario, server);
                 formulario.Show();
+            });
+        }
+
+        private void PonerEnMarchaFormularioTablero(string nombreAdmin, int turno, int numeroJugadores)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                formulario2 = new FormTablero(nombreUsuario, nombreAdmin, server, formulario, turno, numeroJugadores);
+                formulario2.Show();
             });
         }
 
@@ -320,6 +424,14 @@ namespace WindowsFormsApplication1
             string mensajeChat = trozos[1].Split('\0')[0];
             formulario.EscribirChat(emisor, mensajeChat);
         }
+        public void NotificarAbandono(string mensaje)
+        {
+            formulario2.NotificarAbandono(mensaje);
+        }
+        public void ActualizarJuego(int turno, string posiciones)
+        {
+            formulario2.ActualizarJuego(turno, posiciones);
+        }
         public void RellenarGrid(string jugador)
         {
             formulario.EscribirGrid(jugador);
@@ -335,6 +447,13 @@ namespace WindowsFormsApplication1
         public void EscribirMensajeConsultas(string jugador)
         {
             formulario.EscribirMensajeConsultas(jugador);
+        }
+        public void EscribirChatJuego(string mensaje)
+        {
+            string[] trozos = mensaje.Split('|');
+            string emisor = trozos[0];
+            string mensajeChat = trozos[1].Split('\0')[0];
+            formulario2.EscribirChatJuego(emisor, mensajeChat);
         }
         public void BorrarChat(bool borrar)
         {
